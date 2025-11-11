@@ -15,10 +15,10 @@ int createRepo() {
     printf("checkpoint repo has been created\n");
     return 0;
   } else if (repo == -1 & errno == 17) {
-    printf("repo exists already. moving on!");
+    printf("repo exists already. moving on!\n");
     return 0;
   } else {
-    printf("something went wrong... i'mma head out. exit");
+    printf("something went wrong... i'mma head out.\n");
     return 1;
   }
 
