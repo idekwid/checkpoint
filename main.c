@@ -22,7 +22,29 @@ int createRepo() {
     return 1;
   }
 
-} 
+}
+
+int createMetaFile() {
+  FILE* metaFile;
+  metaFile = fopen(".check/meta.check", "r");
+
+  if (metaFile == NULL) {    
+    metaFile = fopen(".check/meta.check", "w");
+    fprintf(metaFile,"meta file!");
+    
+    printf("meta file created\n");
+    
+    fclose(metaFile);
+    return 0;
+  } else {
+    printf("meta file exists, so moving on");
+    fclose(metaFile);
+    return 0;
+  }
+
+  printf("something somewhere went really wrong...");
+  return 1;
+}
 
 int main() {
   int repo;
@@ -32,6 +54,11 @@ int main() {
   if (repo != 0) {
     return 1;
   }
+
+  int metaFile;
+
+  metaFile = createMetaFile();
+  if (metaFile == 1) return 1;
 
   return 0;
 }
