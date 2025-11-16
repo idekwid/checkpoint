@@ -1,2 +1,2 @@
 run:
-	cc main.c -o main -g -Wall -Wextra
+	clang main.c -o main -g -Wall -Wextra

@@ -2,12 +2,12 @@
 #include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 
-char checkdir[] = ".check";
-
 int createRepo() {
+  char checkdir[] = ".check";
   
   int repo;
   repo = mkdir(checkdir, 0777);
@@ -15,7 +15,7 @@ int createRepo() {
   if (repo == 0) {
     printf("checkpoint repo has been created\n");
     return 0;
-  } else if (repo == -1 & errno == 17) {
+  } else if ((repo == -1) & (errno == 17)) {
     printf("repo exists already. moving on!\n");
     return 0;
   } else {
@@ -70,20 +70,23 @@ void getFileAndPut() {
 }
 
 int main(int argc, char* argv[]) {
-  int repo;
+  if (argv[1] != NULL) {  
+    if (strcmp(argv[1], "init\n") != 0) {
+      int repo;
+      repo = createRepo();
+      if (repo != 0) return 1;
 
-  repo = createRepo();
+      int metaFile;
+      metaFile = createMetaFile();
+      if (metaFile == 1) return 1;
 
-  if (repo != 0) {
-    return 1;
+      return 0;
+    }
+
+    if (strcmp(argv[1], "point\n") != 0) {
+      getFileAndPut();
+      return 0;
+    }
   }
-
-  int metaFile;
-
-  metaFile = createMetaFile();
-  if (metaFile == 1) return 1;
-
-  getFileAndPut();
-
   return 0;
 }
