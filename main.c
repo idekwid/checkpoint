@@ -71,7 +71,7 @@ void getFileAndPut() {
 
 int main(int argc, char* argv[]) {
   if (argv[1] != NULL) {  
-    if (strcmp(argv[1], "init\n") == 0) {
+    if (strcmp(argv[1], "init") == 0) {
       int repo;
       repo = createRepo();
       if (repo != 0) return 1;
@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
       if (metaFile == 1) return 1;
 
       return 0;
-    } else if (strcmp(argv[1], "point\n") == 0) {
+    } else if (strcmp(argv[1], "point") == 0) {
       getFileAndPut();
       return 0;
     }
