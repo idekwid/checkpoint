@@ -6,63 +6,71 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
-int createRepo() {
+int create_repo()
+{
   char checkdir[] = ".check";
   
-  int repo;
-  repo = mkdir(checkdir, 0777);
+  int repo = mkdir(checkdir, 0777);
 
-  if (repo == 0) {
+  if (repo == 0)
+  {
     printf("checkpoint repo has been created\n");
     return 0;
-  } else if ((repo == -1) & (errno == 17)) {
+  }
+  else if ((repo == -1) & (errno == 17))
+  {
     printf("repo exists already. moving on!\n");
     return 0;
-  } else {
+  }
+  else
+  {
     printf("something went wrong... i'mma head out.\n");
     return 1;
   }
-
 }
 
-int createMetaFile() {
-  FILE* metaFile;
-  metaFile = fopen(".check/meta.check", "r");
+int create_meta_file()
+{
+  FILE *meta_file = fopen(".check/meta.check", "r");
 
-  if (metaFile == NULL) {    
-    metaFile = fopen(".check/meta.check", "w");
-    fprintf(metaFile,"meta file!");
+  if (meta_file == NULL)
+  {    
+    meta_file = fopen(".check/meta.check", "w");
+    fprintf(meta_file,"meta file!");
     
     printf("meta file created\n");
     
-    fclose(metaFile);
+    fclose(meta_file);
     return 0;
-  } else {
+  }
+  else
+  {
     printf("meta file exists, so moving on\n");
-    fclose(metaFile);
+    fclose(meta_file);
     return 0;
   }
 
   printf("something somewhere went really wrong...");
-  fclose(metaFile); // this might throw a segfault but I can't prove it
+  fclose(meta_file); // this might throw a segfault but I can't prove it
   return 1;
 }
 
-int getFileAndPut() {
-  FILE* main;
-  int64_t fileSize;
-
-  main = fopen(".check", "r");
+int get_file_and_put()
+{
+  FILE *main = fopen(".check", "r");
   
-  if (main == NULL) {   
+  if (main == NULL)
+  {
     printf("repo does not exist, run 'init' first.\n");
     return 1;
-  } else {
+  }
+  else
+  {
     fclose(main);
     main = fopen("main.c", "r");
 
     fseek(main, 0, SEEK_END);
-    fileSize = ftell(main);
+    int64_t fileSize = ftell(main);
     rewind(main);
     char* fileContent = (char*)malloc(sizeof(char)*fileSize);
     fread(fileContent, 1, fileSize, main);
@@ -70,7 +78,7 @@ int getFileAndPut() {
     fclose(main);
     main = fopen(".check/main.c.check", "w");
 
-    fprintf(main, fileContent);
+    fprintf(main, "%s", fileContent);
 
     free(fileContent);
     fclose(main);
@@ -78,7 +86,8 @@ int getFileAndPut() {
   }
 }
 
-void helpText() {
+void help_text()
+{
   printf("Checkpoint\n\n");
   printf("Options:\n");
   printf("init - initializes the repository. run this before anything\n");
@@ -87,33 +96,41 @@ void helpText() {
 }
 
 int main(int argc, char* argv[]) {
-  if (argv[1] == NULL) {  
+  if (argv[1] == NULL)
+  {  
     printf("unknown command - run help to see what you can do\n");
     return 1;
-  } else {
-    if (strcmp(argv[1], "init") == 0) {
-      int repo;
-      repo = createRepo();
+  }
+  else
+  {
+    if (strcmp(argv[1], "init") == 0)
+    {
+      int repo = create_repo();
       if (repo != 0) return 1;
 
-      int metaFile;
-      metaFile = createMetaFile();
-      if (metaFile != 0) return 1;
+      int meta_file = create_meta_file();
+      if (meta_file != 0) return 1;
 
       return 0;
-    } else if (strcmp(argv[1], "point") == 0) {
-      int gotFile;
-      gotFile = getFileAndPut();
+    } 
+    else if (strcmp(argv[1], "point") == 0)
+    {
+      int gotFile = get_file_and_put();
       if (gotFile != 0) return 1;
       
       return 0;
-    } else if (strcmp(argv[1], "help") == 0) {
-      helpText();
+    } 
+    else if (strcmp(argv[1], "help") == 0)
+    {
+      help_text();
       return 0;
-    } else {
+    }
+    else
+    {
       printf("unknown command - run help to see what you can do\n");
-      return 1;  
+      return 1;
     }
   }
+
   return 0;
 }
