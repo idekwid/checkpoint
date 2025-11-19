@@ -5,17 +5,15 @@ My own vcs
 Why not? It's a great way for me to get into C, and I had some ideas for stuff I'd want in a vcs, so this is that.
 
 ## What can it do?
-I have actually conceptualized some workflows, so here they are:
+Not that much yet... it's VERY work in progress. Right now you can:
+- display a help page
+- initialize a repo with a meta file (that does not to much yet)
+- save the main.c file in the repo
+- prevent errors where I saw them
 
-- Write code -> set a checkpoint -> write more code -> set the next checkpoint
+## Should I use it for my project when it's done?
 
-- Write code -> set a checkpoint -> write more code -> realize you messed something up and wanna go back -> revert to last checkpoint -> write better code
 
-- have a lot of checkpoints -> realize this isn't making ANY sense whatsoever -> rollback to previous checkpoints -> start off from there
-
-- more to follow as I go on
-
-## Should I use it for my project?
 ### Short answer: Probably not.
 
 ### Long answer:
