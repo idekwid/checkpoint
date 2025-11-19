@@ -78,8 +78,19 @@ int getFileAndPut() {
   }
 }
 
+void helpText() {
+  printf("Checkpoint\n\n");
+  printf("Options:\n");
+  printf("init - initializes the repository. run this before anything\n");
+  printf("point - save current main file to the repo\n");
+  printf("help - show this screen\n");
+}
+
 int main(int argc, char* argv[]) {
-  if (argv[1] != NULL) {  
+  if (argv[1] == NULL) {  
+    printf("unknown command - run help to see what you can do\n");
+    return 1;
+  } else {
     if (strcmp(argv[1], "init") == 0) {
       int repo;
       repo = createRepo();
@@ -94,7 +105,14 @@ int main(int argc, char* argv[]) {
       int gotFile;
       gotFile = getFileAndPut();
       if (gotFile == 1) return 1;
+      
       return 0;
+    } else if (strcmp(argv[1], "help") == 0) {
+      helpText();
+      return 0;
+    } else {
+      printf("unknown command - run help to see what you can do\n");
+      return 1;  
     }
   }
   return 0;
