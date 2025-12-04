@@ -1,3 +1,11 @@
+/* Since there is a huge chain of if-else statements, I want to make it prettier.
+ * This is the branch that will fix it.
+ * Why branch? So I can hop the fuck back if something fails...
+ *
+ * So let's go, let's hope this works as I want it to
+ *
+ */
+
 #include <asm-generic/errno-base.h>
 #include <errno.h>
 #include <stdint.h>
@@ -88,7 +96,7 @@ int get_file_and_put()
 
 void help_text()
 {
-  printf("Checkpoint\n\n");
+  printf("Checkpoint - definitely one of the vcs's\n\n");
   printf("Options:\n");
   printf("init - initializes the repository. run this before anything\n");
   printf("point - save current main file to the repo\n");
