@@ -1,9 +1,5 @@
-/* Since there is a huge chain of if-else statements, I want to make it prettier.
- * This is the branch that will fix it.
- * Why branch? So I can hop the fuck back if something fails...
- *
- * So let's go, let's hope this works as I want it to
- *
+/* oops... this branch is under construction right now and will not work!
+ * go back to main... or pr on this one if you *really* want to
  */
 
 #include <asm-generic/errno-base.h>
@@ -104,55 +100,6 @@ void help_text()
 }
 
 int main(int argc, char* argv[]) {
-  if (argc == 2)
-  {   
-    if (argv[1] == NULL)
-    {  
-      printf("unknown command - run help to see what you can do\n");
-      return 1;
-    }
-    else
-    {
-      if (strcmp(argv[1], "init") == 0)
-      {
-        int repo = create_repo();
-        if (repo != 0) return 1;
-
-        int meta_file = create_meta_file();
-        if (meta_file != 0) return 1;
-
-        return 0;
-      } 
-      else if (strcmp(argv[1], "point") == 0)
-      {
-        int gotFile = get_file_and_put();
-        if (gotFile != 0) return 1;
-        
-        return 0;
-      } 
-      else if (strcmp(argv[1], "help") == 0)
-      {
-        help_text();
-        return 0;
-      }
-      else 
-      {
-        printf("unknown command - run help to see what you can do\n");
-        return 1;
-      }
-    }
-  }
-
-  else if (argc > 2)
-  {
-    printf("can't do multiple commands yet\n");
-    return 1;
-  } 
-  else
-  {
-    printf("unknown command - run help to see what you can do\n");
-    return 1;
-  }
+  printf("branch under construction, will not work\n");
   return 0;
-  
 }
