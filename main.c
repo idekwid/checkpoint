@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
+
 int create_repo()
 {
   char checkdir[] = ".check";
@@ -99,7 +100,69 @@ void help_text()
   printf("help - show this screen\n");
 }
 
-int main(int argc, char* argv[]) {
+int get_index(char *argument)
+{
+  if (argument != NULL)
+  {
+    char *argus[3];
+    argus[0] = "init";
+    argus[1] = "point";
+    argus[2] = "help";
+
+    for(int i=0; i < sizeof(argus)/sizeof(argus[0]); i++)
+    {
+      if (strcmp(argument, argus[i]) == 0)
+      {
+	return i;
+      }
+    }
+    return -1;
+  }
+  else
+  {
+    return -1;
+  }
+}
+
+
+int main(int argc, char* argv[]) 
+{
   printf("branch under construction, will not work\n");
-  return 0;
+  int argument = get_index(argv[1]);
+  if (argument != -1)
+  {
+    if (argc == 2)
+    {
+      switch(argument)
+      {
+	case 0: //init
+	  int repo = create_repo();
+	  if (repo != 0) return 1;
+
+	  int meta_file = create_meta_file();
+	  if (meta_file != 0) return 1;
+
+	  return 0;
+	  break;
+
+	case 1: //point
+	  int got_File = get_file_and_put();
+	  if (got_File != 0) return 1;
+
+	  return 0;
+	  break;
+
+	case 2: //help
+	  help_text();
+	  return 0;
+	  break;
+
+	default:
+	  printf("unknown command - run help to see what you can do\n");
+	  break;
+      }
+
+      return 0;
+    }
+  }
 }
