@@ -1,7 +1,3 @@
-/* oops... this branch is under construction right now and will not work!
- * go back to main... or pr on this one if you *really* want to
- */
-
 #include <asm-generic/errno-base.h>
 #include <errno.h>
 #include <stdint.h>
@@ -127,7 +123,6 @@ int get_index(char *argument)
 
 int main(int argc, char* argv[]) 
 {
-  printf("branch under construction, will not work\n");
   int argument = get_index(argv[1]);
   if (argument != -1)
   {
@@ -159,10 +154,12 @@ int main(int argc, char* argv[])
 
 	default:
 	  printf("unknown command - run help to see what you can do\n");
+	  return 1;
 	  break;
       }
 
       return 0;
     }
   }
+  return 1;
 }
