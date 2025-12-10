@@ -159,7 +159,14 @@ int main(int argc, char* argv[])
       }
 
       return 0;
+    } else
+    {
+      printf("can't do multiple commands yet\n");
     }
+  } else 
+  {
+    printf("unknown command - run help to see what you can do\n");
+    return 0;
   }
   return 1;
 }
