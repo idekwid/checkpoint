@@ -100,10 +100,11 @@ int get_index(char *argument)
 {
   if (argument != NULL)
   {
-    char *argus[3];
+    char *argus[4];
     argus[0] = "init";
     argus[1] = "point";
     argus[2] = "help";
+    argus[3] = "hash";
 
     for(int i=0; i < (int)sizeof(argus)/(int)sizeof(argus[0]); i++)
     {
@@ -120,6 +121,16 @@ int get_index(char *argument)
   }
 }
 
+unsigned hash(const char *input, size_t len)
+{
+  uint32_t hash = 0;
+  while(len)
+  {
+    hash = 31 * hash + *input++;
+    len--;
+  }
+  return hash;
+}
 
 int main(int argc, char* argv[]) 
 {
@@ -154,6 +165,12 @@ int main(int argc, char* argv[])
 	  help_text();
 	  return 0;
 	  break;
+	
+	case 3: //hash
+	  unsigned output;
+	  output = hash("hello deine mama", 17);
+	  printf("%u\n", output);
+	  return 0;
 
 	default:
 	  printf("unknown command - run help to see what you can do\n");
