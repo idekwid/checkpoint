@@ -6,6 +6,18 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
+unsigned hash_string;
+
+unsigned hash(const char *input, size_t len)
+{
+  uint32_t hash = 0;
+  while(len)
+  {
+    hash = 31 * hash + *input++;
+    len--;
+  }
+  return hash;
+}
 
 int create_repo()
 {
@@ -74,6 +86,7 @@ int get_file_and_put()
     int64_t fileSize = ftell(main);
     rewind(main);
     char* fileContent = (char*)malloc(sizeof(char)*fileSize);
+    hash_string = hash(fileContent, sizeof(char)*fileSize);
     fread(fileContent, 1, fileSize, main);
 
     fclose(main);
@@ -121,16 +134,6 @@ int get_index(char *argument)
   }
 }
 
-unsigned hash(const char *input, size_t len)
-{
-  uint32_t hash = 0;
-  while(len)
-  {
-    hash = 31 * hash + *input++;
-    len--;
-  }
-  return hash;
-}
 
 int main(int argc, char* argv[]) 
 {
@@ -157,6 +160,7 @@ int main(int argc, char* argv[])
 	  int got_file; 
 	  got_file = get_file_and_put();
 	  if (got_file != 0) return 1;
+    printf("%d" ,hash_string);
 
 	  return 0;
 	  break;
@@ -168,7 +172,7 @@ int main(int argc, char* argv[])
 	
 	case 3: //hash
 	  unsigned output;
-	  output = hash("hello deine mama", 17);
+    output = hash("hello deine mama", 17);
 	  printf("%u\n", output);
 	  return 0;
 
